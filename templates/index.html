@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bored</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+
+<body>
+	<div class="modal fade" id="activity" tabindex="-1" aria-labelledby="activityLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="activityLabel">Get specific activity</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form method="POST" action="{{url_for('home')}}" class="form">
+						<div class="form-group row">
+							<label for="Type">Type</label>
+								<select required='' id="Type" name="Type" class="form-select">
+									<option value="education">Education</option>
+									<option value="recreational">Recreational</option>
+									<option value="social">Social</option>
+									<option value="diy">Diy</option>
+									<option value="charity">Charity</option>
+									<option value="cooking">Cooking</option>
+									<option value="relaxation">Relaxation</option>
+									<option value="music">Music</option>
+									<option value="busywork">Busywork</option>
+								  </select>
+						</div>
+						<div class="form-group row">
+							<label for="Participants">Participants</label>
+							<input required='' class="form-control" id="Participants" name="Participants" type="number" min="1" step="1" value="">
+						</div>
+						<div class="form-group row">
+							<input class="btn btn-outline-dark" id="submit" name="submit" type="submit">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="meaning" tabindex="-1" aria-labelledby="meaningLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="meaningLabel">What does it mean?</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<table class="table">
+						<tbody>
+						  <tr>
+							<td>Activity</td>
+							<td>Description of the queried activity.</td>
+						  </tr>
+						  <tr>
+							<td>Accessibility</td>
+							<td>A factor describing how possible an event is to do with zero being the most accessible.</td>
+						  </tr>
+						  <tr>
+							<td>Type</td>
+							<td>Type of the activity.<td>
+						  </tr>
+						  <tr>
+							<td>Participants</td>
+							<td>The number of people that this activity could involve.</td>
+						  </tr>
+						  <tr>
+							<td>Price</td>
+							<td>A factor describing the cost of the event with zero being free.</td>
+						  </tr>
+						  <tr>
+							<td>Key</td>
+							<td>A unique numeric id.</td>
+						  </tr>
+						</tbody>
+					  </table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bg">
+		<div class="content">
+			<header class="content-text">
+				{% if activity|length != 1 %}
+				<h1>{{activity['activity']}}.</h1>
+				<p>Accessibility: {{activity['accessibility']}}</p>
+				<p>Type: {{activity['type']}}</p>
+				<p>Participants: {{activity['participants']}}</p>
+				<p>Price: {{activity['price']}}</p>
+				<p>Key: {{activity['key']}}</p>
+				<a class="nav-link" type="button" data-bs-toggle="modal" data-bs-target="#meaning">What does it mean?</a>
+				{% else %}
+				<h1>Nothing was found.</h1>
+				{% endif %}
+				<div class="links">
+					<a class="nav-link" href="{{url_for('home')}}">Get another random activity</a>
+					<a class="nav-link" type="button" data-bs-toggle="modal" data-bs-target="#activity">Get specific activity</a>
+				</div>
+			</header>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
